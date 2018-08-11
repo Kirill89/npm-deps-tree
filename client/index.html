@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>npm dependency graph</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="content">
+  <form class="input pure-form" v-on:submit.prevent="requestTree">
+    <fieldset>
+      <legend>Package dependencies info</legend>
+      <input type="text" v-model="packageName" placeholder="package name">@
+      <input type="text" v-model="packageVersion" placeholder="package version">
+      <button v-on:click.prevent="requestTree" class="pure-button pure-button-primary">go!</button>
+    </fieldset>
+  </form>
+  <div class="output">
+    <div v-if="isLoading">loading...</div>
+    <div v-if="isError" class="output__error">Can't request package information. Please check logs.</div>
+    <div v-if="tree">
+      <h2>{{tree.name}}@{{tree.version}} ({{tree.dependencies.length}})</h2>
+      <dependencies-tree :depth="0" :dependencies="tree.dependencies"></dependencies-tree>
+    </div>
+  </div>
+</div>
+
+<script type="text/x-template" id="dependencies-tree">
+  <ul v-bind:class="{tree: depth === 0}">
+    <li v-for="dependency in dependencies">
+      <span class="tree__label" v-on:click="toggle(dependency)">
+        {{dependency.name}}@{{dependency.version}} ({{dependency.dependencies.length}})
+        <span v-if="dependency.circular">↫</span>
+      </span>
+      <dependencies-tree
+          v-if="shown.includes(dependency)"
+          :depth="depth + 1"
+          :dependencies="dependency.dependencies"></dependencies-tree>
+    </li>
+  </ul>
+</script>
+
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+globals:
+  it: false
+  describe: false

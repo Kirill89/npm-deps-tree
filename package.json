@@ -1,0 +1,37 @@
+{
+  "name": "npm-deps-tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "nyc --reporter text --reporter html mocha --recursive ./server/test",
+    "reformat": "prettier \"**/*.js\" \"**/*.css\" \"!client/dist/**\" \"!coverage/**\" --write",
+    "client-build": "parcel build client/index.html --out-dir client/dist",
+    "client-dev": "parcel client/index.html --out-dir client/dist",
+    "start": "node server/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "Kirill",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-async-handler": "^1.1.4",
+    "got": "^9.0.0",
+    "mahsan": "^0.2.2",
+    "purecss": "^1.0.0",
+    "semver": "^5.5.0",
+    "vue": "^2.5.17",
+    "vue-resource": "^1.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.2",
+    "proxyquire": "^2.0.1"
+  }
+}

@@ -1,0 +1,4 @@
+client/dist
+.cache
+.nyc_output
+coverage
